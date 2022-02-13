@@ -1,0 +1,59 @@
+<?php
+
+/** @var \Arshad\Slider\Block\Slider $block */
+$banners = $block->getBannerCollection();
+$check   = is_array($banners) ? !empty($banners) : $banners->getSize();
+if ($check): ?>
+    <?php
+    $sliderId      = $block->getSliderId() . uniqid('-', false);
+    $sliderOptions = $block->getBannerOptions(); ?>
+    <div class="carousel-container mp-banner-slider">
+        <div id="banner-slider-carousel">
+            <?php $iterator = 1; ?>
+            <div id="bannerslider-list-items-<?= /* @noEscape */ $sliderId ?>"
+                 class="owl-carousel owl-theme">
+                <?php
+                /** @var \Arshad\Slider\Model\Banner $banner */
+                foreach ($banners as $banner):
+                    ?>
+                    <?php
+                    $bnTitle = $banner->getTitle();
+                    $bnUrl   = $banner->getUrl();
+                    $bnImg   = $banner->getImageUrl();
+                    ?>
+                    <?= ($iterator++ === 1) ? '<div class="banner-item banner-slider">' : '</div><div class="banner-item banner-slider">' ?>
+
+                        <div class="item-image">
+                            <?php if (!empty($bnUrl)): ?>
+                                <a class="owl-image"
+                                   href="<?= $block->escapeUrl($bnUrl) ?>" <?= /* @noEscape */ ($banner->getNewtab() === '1') ? 'target="_blank"' : '' ?>>
+                                    <?php if (!empty($bnTitle)): ?>
+                                        <div class="banner-title"><?= $block->escapeHtml($bnTitle) ?></div>
+                                    <?php endif; ?>
+
+                                    <img class="img-responsive" src="<?= $block->escapeUrl($bnImg) ?>" alt="<?= $block->escapeHtml($bnTitle) ?>">
+
+                                </a>
+                            <?php else: ?>
+
+                                <img class="owl-image img-responsive" src="<?= $block->escapeUrl($bnImg) ?>"
+                                     title="<?= $block->escapeHtml($bnTitle) ?>" alt="<?= $block->escapeHtml($bnTitle) ?>">
+
+                            <?php endif; ?>
+                        </div>
+                    <?= ($iterator === count($banners) + 1) ? '</div>' : '' ?>
+                <?php endforeach; ?>
+            </div>
+        </div>
+        <?= $block->getPagerHtml() ?>
+    </div>
+    <script>
+        require(['jquery', 'arshad/slider/owl.carousel'], function ($) {
+            $('#bannerslider-list-items-<?= /* @noEscape */ $sliderId ?>').owlCarousel(<?= /* @noEscape */ $sliderOptions ?>);
+            if(/Android|webOS|iPhone|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
+                var widthMb = parseFloat($('.page-wrapper').width()) - 30;
+                $('.arshad-banner-sidebar').attr('style','max-width: '+widthMb+'px');
+            }
+        });
+    </script>
+<?php endif; ?>

@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<widgets xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Widget:etc/widget.xsd">
+    <widget class="Arshad\Slider\Block\Widget" id="arshad_slider_widget">
+        <label translate="true">Arshad Banner Slider</label>
+        <description translate="true">Banner Slider list</description>
+        <parameters>
+            <parameter name="slider_id" xsi:type="select" required="true" visible="true" source_model="Arshad\Slider\Model\Config\Source\SlidersWidget">
+                <label translate="true">Select Slider</label>
+            </parameter>
+        </parameters>
+    </widget>
+</widgets>

@@ -1,0 +1,32 @@
+type Query {
+    arshadBannerSliders(sliderId: Int @doc(description: "Search by Slider"),): ArshadBannerSlider @resolver(class: "Arshad\\Slider\\Model\\Resolver\\ArshadBannerSliders") @doc(description: "Get banner slider")
+}
+
+type ArshadBannerSlider {
+    slider_id: Int
+    name: String
+    status: Boolean
+    store_ids: String
+    customer_group_ids: String
+    nav: Boolean
+    dots: Boolean
+    effect: String
+    display_location: String
+    from_date: String
+    to_date: String
+    create_at: String
+    updated_at: String
+    banners: [ArshadBannerSliderBanner]
+}
+
+type ArshadBannerSliderBanner {
+    banner_id: Int
+    title: String
+    alt_text: String
+    url: String
+    image: String
+    status: String
+    created_at: String
+    updated_at: String
+}
+

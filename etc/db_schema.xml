@@ -1,0 +1,69 @@
+<?xml version="1.0"?>
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+    <table name="arshad_slider" resource="default" engine="innodb" comment="Arshad Slider Table">
+        <column xsi:type="int" name="slider_id" unsigned="false" nullable="false" identity="true"
+                comment="Slider ID"/>
+        <column xsi:type="varchar" name="name" nullable="false" length="255" comment="Slider Name"/>
+        <column xsi:type="varchar" name="store_ids" nullable="false" length="255" comment="Store IDs"/>
+        <column xsi:type="varchar" name="customer_group_ids" nullable="false" length="255" comment="Customer Group IDs"/>
+        <column xsi:type="varchar" name="effect" nullable="false" length="255" comment="Slider Effect"/>
+        <column xsi:type="smallint" name="status" unsigned="false" nullable="false" identity="false" comment="Status"/>
+        <column xsi:type="smallint" name="nav" unsigned="false" nullable="false" identity="false"
+                default="0" comment="Navigation"/>
+        <column xsi:type="smallint" name="dots" unsigned="false" nullable="false" identity="false"
+                default="0" comment="Dots"/>
+        <column xsi:type="text" name="display_location" nullable="true" comment="Slider Location"/>
+        <column xsi:type="timestamp" name="from_date" on_update="false" nullable="true" comment="From date" />
+        <column xsi:type="timestamp" name="to_date" on_update="false" nullable="true"  comment="To Date"/>
+        <column xsi:type="timestamp" name="created_at" on_update="false" nullable="false" default="CURRENT_TIMESTAMP"
+                comment="Created At"/>
+        <column xsi:type="timestamp" name="updated_at" on_update="true" nullable="false" default="CURRENT_TIMESTAMP"
+                comment="Updated At"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="slider_id"/>
+        </constraint>
+        <index referenceId="SLIDER_NAME" indexType="fulltext">
+            <column name="name"/>
+        </index>
+    </table>
+    <table name="arshad_banner" resource="default" engine="innodb" comment="Arshad Banner Table">
+        <column xsi:type="int" name="banner_id" unsigned="false" nullable="false" identity="true"
+                comment="Banner ID"/>
+        <column xsi:type="varchar" name="title" length="255" nullable="false" comment="Banner Title"/>
+        <column xsi:type="varchar" name="alt_text" length="255" nullable="false" comment="Banner Atl Text"/>
+        <column xsi:type="varchar" name="url" length="255" nullable="false" comment="Banner URL Link"/>
+        <column xsi:type="smallint" name="status" unsigned="false" nullable="false" identity="false" comment="Status"/>
+        <column xsi:type="timestamp" name="created_at" on_update="false" nullable="false" default="CURRENT_TIMESTAMP"
+                comment="Created At"/>
+        <column xsi:type="timestamp" name="updated_at" on_update="true" nullable="false" default="CURRENT_TIMESTAMP"
+                comment="Updated At"/>
+        <column xsi:type="text" name="image" nullable="false" comment="Image"/>
+        <!--<column xsi:type="text" name="image_desktop" nullable="false" comment="Desktop Image"/>
+        <column xsi:type="text" name="image_tablet" nullable="false" comment="Tablet Image"/>
+        <column xsi:type="text" name="image_mobile" nullable="false" comment="Mobile Image"/>-->
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="banner_id"/>
+        </constraint>
+        <index referenceId="BANNER_TITLE_ALTTEXT_URL" indexType="fulltext">
+            <column name="title"/>
+            <column name="alt_text"/>
+            <column name="url"/>
+        </index>
+    </table>
+    <table name="arshad_banner_slider" resource="default" engine="innodb" comment="CMS Page To Store Linkage Table">
+        <column xsi:type="int" name="slider_id" unsigned="false" nullable="false" identity="false"
+                comment="Slider ID"/>
+        <column xsi:type="int" name="banner_id" unsigned="false" nullable="false" identity="false"
+                comment="Banner ID"/>
+        <column xsi:type="smallint" name="position" unsigned="false" nullable="true" identity="false" comment="Status"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="slider_id"/>
+            <column name="banner_id"/>
+        </constraint>
+        <constraint xsi:type="foreign" referenceId="ARSHAD_SLIDER_SLIDER_ID_ARSHAD_BANNER_SLIDER_SLIDER_ID" table="arshad_banner_slider"
+                    column="slider_id" referenceTable="arshad_slider" referenceColumn="slider_id" onDelete="CASCADE"/>
+        <constraint xsi:type="foreign" referenceId="ARSHAD_BANNER_BANNER_ID_ARSHAD_BANNER_SLIDER_BANNER_ID" table="arshad_banner_slider"
+                    column="banner_id" referenceTable="arshad_banner" referenceColumn="banner_id" onDelete="CASCADE"/>
+    </table>
+</schema>

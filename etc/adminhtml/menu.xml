@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add id="Arshad_Slider::bannerslider" title="Arshad Banner Sliders" module="Arshad_Slider" sortOrder="100" resource="Arshad_Slider::bannerslider" parent="Magento_Backend::content"/>
+        <add id="Arshad_Slider::banner" title="Manage Banners" module="Arshad_Slider" sortOrder="20" parent="Arshad_Slider::bannerslider" action="arshadslider/banner/index" resource="Arshad_Slider::banner"/>
+        <add id="Arshad_Slider::slider" title="Manage Sliders" module="Arshad_Slider" sortOrder="30" parent="Arshad_Slider::bannerslider" action="arshadslider/slider/index" resource="Arshad_Slider::slider"/>
+        <add id="Arshad_Slider::configuration" title="Configuration" module="Arshad_Slider" sortOrder="70" parent="Arshad_Slider::bannerslider" action="adminhtml/system_config/edit/section/arshadslider" resource="Arshad_Slider::configuration"/>
+    </menu>
+</config>
